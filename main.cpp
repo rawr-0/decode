@@ -82,7 +82,7 @@ string decode_mail(string mail){
             mail[i] = shift_eng(mail[i],shift);
         }
     }
-    return mail;
+    return to_string(shift)+";"+mail;
 }
 
 string clear(string s){
@@ -97,20 +97,22 @@ string clear(string s){
 int main(){
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
-    fstream in1("../student_8.csv");
-    fstream in2("../hash.txt");
+    fstream in1("../student_08.csv");
+    fstream in2("../hashcat.txt");
     fstream in3("../decoded.txt");
     ofstream out("../student_8_done.csv");
-    string s1,s2,s3,s4;
+    string s1,s2,s3;
     getline(in1,s1);
-    out<<s1<<endl;
     vector<string> str;
+    str = split(s1);
+    out<<str[0]<<";"<<"Смещение почты"<<";"<<str[1]<<";"<<"Смещение адреса"<<';'
+    <<str[2]<<endl;
     while(!in1.eof()){
         getline(in1,s1);
         getline(in2,s2);
-        getline(in3,s4);
+        getline(in3,s3);
         str = split(s1);
-        out<<clear(s2)<<";"<<decode_mail(str[1])<<";"<<s4<<endl;
+        out<<clear(s2)<<";"<<decode_mail(str[1])<<";"<<s3<<endl;
     }
     return 0;
 
